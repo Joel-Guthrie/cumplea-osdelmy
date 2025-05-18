@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños! </title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Importamos la librería de confeti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <!-- Importamos Howler.js para mejor manejo de audio -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+</head>
+<body>
+  <main class="container">
+    <div id="start-screen">
+      <button id="start-button">¡Toca para comenzar!</button>
+    </div>
+
+    <div id="countdown-screen" class="hidden">
+      <div id="countdown">3</div>
+    </div>
+
+    <div id="celebration-screen" class="hidden">
+      <div id="mariachi-container" class="hidden">
+        <!-- Mariachis dibujados con CSS -->
+        <div class="mariachi-band">
+          <div class="mariachi mariachi-left">
+            <div class="sombrero"></div>
+            <div class="face">
+              <div class="eyes"></div>
+              <div class="smile"></div>
+            </div>
+            <div class="body"></div>
+            <div class="guitar"></div>
+          </div>
+          <div class="mariachi mariachi-center">
+            <div class="sombrero"></div>
+            <div class="face">
+              <div class="eyes"></div>
+              <div class="smile"></div>
+            </div>
+            <div class="body"></div>
+            <div class="trumpet"></div>
+          </div>
+          <div class="mariachi mariachi-right">
+            <div class="sombrero"></div>
+            <div class="face">
+              <div class="eyes"></div>
+              <div class="smile"></div>
+            </div>
+            <div class="body"></div>
+            <div class="guitar small"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="card-container" class="hidden">
+        <div class="card">
+          <div class="card-front">
+            <h2>DEEEELMYYYY 🌻</h2>
+            <p>
+              VISTE querias mariachis y te di mariachis de nada 😉. No pude estar ayer en tu cumpleaños pero no cuenta por que recien hoy es tu cumpleaños jajajaja
+              Sabes que te quiero mucho cuak cuak aunque me haces enojar mucho pero igual ni modo jasjasj quiero lo mejor para ti por que te conozco
+              y aunqu estas medio rarita y te patina el coco y sufres de esquizofrenia quiero que seas muy feliz por que te lo mereces.
+              Espero enserio que Dios cumpla con los deseos de tu corazón y cumplas con las metas que tienes unfuerte abrazo... Tu mejor amigo guapo bello churro inteligente sabio perseverante y magnificiente.
+            </p>
+            <p>
+            
+            </p>
+            <p class="bold">
+              
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio elements (ocultos) -->
+    <audio id="tick-sound" src="tick.mp3" preload="auto"></audio>
+    <audio id="confetti-sound" src="confetti.mp3" preload="auto"></audio>
+    <audio id="birthday-song" src="audio/cancion.mp3" preload="auto" loop></audio>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
