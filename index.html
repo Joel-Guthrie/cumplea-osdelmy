@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollos DGE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .print-ticket { display: none; }
+        @media print {
+            body * { visibility: hidden; }
+            .print-ticket, .print-ticket * { visibility: visible; }
+            .print-ticket { position: absolute; top: 0; left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 to-orange-50 min-h-screen">
+    <div id="app" class="container mx-auto p-4 max-w-6xl">
+        <div id="main-menu" class="text-center">
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 flex items-center justify-center space-x-4">
+                <img src="C:\Users\jorge\Desktop\Sistema de pollo\resources\logo.jpeg" alt="Logo" class="w-16 h-16 rounded-full shadow">
+                <div>
+                    <h1 class="text-4xl font-bold text-amber-800 mb-1">D_G_E</h1>
+                    <p class="text-amber-600 text-lg">Para Chuparse Los Dedos</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button onclick="showSection('ventas')" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all">
+                    <div class="text-4xl mb-4">🛒</div>
+                    <h2 class="text-2xl font-bold">VENTAS</h2>
+                    <p class="text-amber-100">Realizar nueva venta</p>
+                </button>
+                
+                <button onclick="showSection('productos')" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all">
+                    <div class="text-4xl mb-4">🍗</div>
+                    <h2 class="text-2xl font-bold">PRODUCTOS</h2>
+                    <p class="text-red-100">Gestionar productos</p>
+                </button>
+                
+                <button onclick="showSection('reportes')" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-all">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h2 class="text-2xl font-bold">REPORTES</h2>
+                    <p class="text-orange-100">Ver ventas del día</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección Ventas -->
+        <div id="ventas-section" class="hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-amber-800">🛒 Nueva Venta</h2>
+                    <button onclick="showSection('main')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">← Volver</button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Productos disponibles -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Productos Disponibles</h3>
+                        <div id="productos-venta" class="space-y-3 max-h-96 overflow-y-auto">
+                            <!-- Los productos se cargan aquí -->
+                        </div>
+                    </div>
+                    
+                    <!-- Carrito de compras -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Carrito de Compras</h3>
+                        <div class="bg-gray-50 rounded-lg p-4 min-h-64">
+                            <div id="carrito-items" class="space-y-2 mb-4">
+                                <p class="text-gray-500 text-center">Carrito vacío</p>
+                            </div>
+                            <div class="border-t pt-4">
+                                <div class="flex justify-between text-xl font-bold">
+                                    <span>Total:</span>
+                                    <span id="total-venta">Bs. 0.00</span>
+                                </div>
+                                <div class="mt-4 space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Tipo de pedido:</label>
+                                    <select id="tipo-pedido" class="w-full p-2 border rounded-lg">
+                                        <option value="llevar">Para Llevar</option>
+                                        <option value="consumo">Consumo en Sala</option>
+                                    </select>
+                                </div>
+                                <button onclick="completarVenta()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg mt-4 font-semibold">
+                                    Completar Venta
+                                </button>
+                                <button onclick="limpiarCarrito()" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg mt-2">
+                                    Limpiar Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Productos -->
+        <div id="productos-section" class="hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-red-800">🍗 Gestión de Productos</h2>
+                    <div class="space-x-2">
+                        <button onclick="mostrarFormProducto()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">+ Agregar Producto</button>
+                        <button onclick="showSection('main')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">← Volver</button>
+                    </div>
+                </div>
+                
+                <!-- Formulario para agregar/editar producto -->
+                <div id="form-producto" class="hidden bg-gray-50 rounded-lg p-4 mb-6">
+                    <h3 id="form-titulo" class="text-lg font-semibold mb-4">Agregar Nuevo Producto</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input type="text" id="producto-nombre" placeholder="Nombre del producto" class="p-2 border rounded-lg">
+                        <input type="number" id="producto-precio" placeholder="Precio (Bs.)" step="0.01" class="p-2 border rounded-lg">
+                        <select id="producto-categoria" class="p-2 border rounded-lg">
+                            <option value="pollo">Pollo</option>
+                            <option value="bebidas">Bebidas</option>
+                            <option value="acompañantes">Acompañantes</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+                    <div class="mt-4 space-x-2">
+                        <button onclick="guardarProducto()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Guardar</button>
+                        <button onclick="cancelarFormProducto()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">Cancelar</button>
+                    </div>
+                </div>
+                
+                <!-- Lista de productos -->
+                <div id="lista-productos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Los productos se cargan aquí -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Reportes -->
+        <div id="reportes-section" class="hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-orange-800">📊 Reportes del Día</h2>
+                    <div class="space-x-2">
+                        <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">📊 Exportar Excel</button>
+                        <button onclick="showSection('main')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">← Volver</button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-green-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-semibold text-green-800">Total Ventas</h3>
+                        <p id="total-ventas-dia" class="text-2xl font-bold text-green-600">Bs. 0.00</p>
+                    </div>
+                    <div class="bg-blue-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-semibold text-blue-800">Órdenes</h3>
+                        <p id="total-ordenes" class="text-2xl font-bold text-blue-600">0</p>
+                    </div>
+                    <div class="bg-purple-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-semibold text-purple-800">Promedio</h3>
+                        <p id="promedio-venta" class="text-2xl font-bold text-purple-600">Bs. 0.00</p>
+                    </div>
+                </div>
+                
+                <div id="lista-ventas" class="space-y-4">
+                    <!-- Las ventas se cargan aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket para imprimir -->
+    <div id="ticket-print" class="print-ticket">
+        <!-- El contenido del ticket se genera aquí -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
